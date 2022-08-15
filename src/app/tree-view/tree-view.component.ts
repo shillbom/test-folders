@@ -17,11 +17,10 @@ export class TreeViewComponent implements OnInit {
 
   hasChild = (_: number, node: Folder) => node.children.length > 0;
 
-  @Output() selectedFolder = new EventEmitter<number>();
+  @Output() folderSelected = new EventEmitter<number>();
 
   onClick(clicked: Folder) {
-    debugger;
-    this.selectedFolder.emit(clicked.id);
+    this.folderSelected.emit(clicked.id);
   }
 
   constructor() {}

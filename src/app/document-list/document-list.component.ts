@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Document } from '../documents';
 
 @Component({
@@ -9,12 +9,19 @@ import { Document } from '../documents';
 export class DocumentListComponent {
   @Input() documents: Document[];
 
-  constructor() {
-    this.documents = [];
+  @Output() folderSelected = new EventEmitter<number>();
+  @Output() documentSelected = new EventEmitter<number>();
+
+  selected(doc: Document) {
+    if (doc.isFolder) {
+      this.folderSelected.emit(doc.id);
+    } else {
+      this.documentSelected.emit(doc.id);
+    }
   }
 
-  share() {
-    window.alert('The product has been shared!');
+  constructor() {
+    this.documents = [];
   }
 }
 

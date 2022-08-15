@@ -8,6 +8,7 @@
 
   <tr
     *ngFor="let document of documents"
+    (click)="selected(document)"
     app-document-row
     [document]="document"
   ></tr>

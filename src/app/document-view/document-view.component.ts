@@ -9,17 +9,19 @@ import { Document } from '../documents';
   styleUrls: ['./document-view.component.css'],
 })
 export class DocumentViewComponent implements OnInit {
-  folderId = 0;
   documents = [] as Document[];
 
   onFolderSelected(id: number) {
-    debugger;
-    this.folderId = id;
+    this.documents = DocumentService.GetDocuments(id);
+  }
+
+  onDocumentSelected(id: number) {
+    window.alert('ACCESS DENIED, doc id: ' + id);
   }
 
   constructor() {}
 
   ngOnInit(): void {
-    this.documents = DocumentService.GetDocuments(this.folderId);
+    this.documents = DocumentService.GetDocuments(0);
   }
 }

@@ -3,8 +3,13 @@
 <div class="layout">
   <app-tree-view
     class="left"
-    (selectedFolder)="(onFolderSelected)"
+    (folderSelected)="onFolderSelected($event)"
   ></app-tree-view>
 
-  <app-document-list class="right" [documents]="documents"></app-document-list>
+  <app-document-list
+    class="right"
+    [documents]="documents"
+    (folderSelected)="onFolderSelected($event)"
+    (documentSelected)="onDocumentSelected($event)"
+  ></app-document-list>
 </div>
