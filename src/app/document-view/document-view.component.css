@@ -1,0 +1,14 @@
+.layout {
+  display: flex;
+  height: 100%;
+  border-top: 1px solid #5b5b5b;
+}
+
+.right {
+  margin: 10px;
+  width: 100%;
+}
+
+.left {
+  border-right: 1px solid #5b5b5b;
+}

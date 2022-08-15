@@ -1,14 +1,14 @@
-<h2>Documents</h2>
-
-<table>
-  <thead>
-    <th>&nbsp;</th>
+<table *ngIf="documents">
+  <tr>
+    <th>Type</th>
     <th>Name</th>
     <th>Description</th>
     <th>Last Changed</th>
-  </thead>
+  </tr>
 
-  <tbody *ngFor="let document of documents">
-    <tr app-document-row [document]="document"></tr>
-  </tbody>
+  <tr
+    *ngFor="let document of documents"
+    app-document-row
+    [document]="document"
+  ></tr>
 </table>

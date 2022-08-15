@@ -7,27 +7,26 @@ import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { DocumentListComponent } from './document-list/document-list.component';
 import { DocumentRowComponent } from './document-list/document-row/document-row.component';
+import { DocumentViewComponent } from './document-view/document-view.component';
+import { TreeViewComponent } from './tree-view/tree-view.component';
 
 @NgModule({
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    RouterModule.forRoot([
-      { path: '', component: DocumentListComponent },
-    ])
+    RouterModule.forRoot([{ path: '', component: DocumentViewComponent }]),
   ],
   declarations: [
     AppComponent,
     TopBarComponent,
     DocumentListComponent,
-    DocumentRowComponent
+    DocumentRowComponent,
+    DocumentViewComponent,
+    TreeViewComponent,
   ],
-  bootstrap: [
-    AppComponent
-  ]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
-
+export class AppModule {}
 
 /*
 Copyright Google LLC. All Rights Reserved.

@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
-
-import { Documents } from '../documents';
+import { Component, Input } from '@angular/core';
+import { Document } from '../documents';
 
 @Component({
   selector: 'app-document-list',
@@ -8,7 +7,11 @@ import { Documents } from '../documents';
   styleUrls: ['./document-list.component.css'],
 })
 export class DocumentListComponent {
-  documents = Documents;
+  @Input() documents: Document[];
+
+  constructor() {
+    this.documents = [];
+  }
 
   share() {
     window.alert('The product has been shared!');

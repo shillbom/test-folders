@@ -1,5 +1,5 @@
-<td *ngIf="document.isFolder">Document</td>
-<td *ngIf="!document.isFolder">Folder</td>
+<td *ngIf="document.isFolder"><i class="material-icons">folder</i></td>
+<td *ngIf="!document.isFolder"><i class="material-icons">description</i></td>
 <td>
   {{ document.name }}
 </td>
@@ -7,5 +7,5 @@
   {{ document.description }}
 </td>
 <td *ngIf="document">
-  {{ format(document.lastChanged, 'longDate') }}
+  {{ format(document.lastChanged, 'YYYY-MM-dd') }}
 </td>
