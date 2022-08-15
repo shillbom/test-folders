@@ -1,0 +1,11 @@
+<td *ngIf="document.isFolder">Document</td>
+<td *ngIf="!document.isFolder">Folder</td>
+<td>
+  {{ document.name }}
+</td>
+<td>
+  {{ document.description }}
+</td>
+<td *ngIf="document">
+  {{ format(document.lastChanged, 'longDate') }}
+</td>
