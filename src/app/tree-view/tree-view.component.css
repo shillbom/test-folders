@@ -1,3 +1,38 @@
-.view {
-  width: 400px;
+:host {
+  width: 600px;
+}
+
+.example-tree-invisible {
+  display: none;
+}
+
+.example-tree ul,
+.example-tree li {
+  margin-top: 0;
+  margin-bottom: 0;
+  list-style-type: none;
+}
+.example-tree-node {
+  display: block;
+}
+
+.example-tree-node .example-tree-node {
+  padding-left: 40px;
+}
+
+cdk-nested-tree-node {
+  display: flex;
+  align-items: center;
+}
+
+button {
+  background-color: white;
+  padding: 0;
+  min-width: 0;
+  height: 40px;
+  flex-shrink: 0;
+  line-height: 40px;
+  border-radius: 50%;
+  vertical-align: baseline;
+  text-align: center;
 }

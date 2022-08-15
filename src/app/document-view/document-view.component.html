@@ -1,7 +1,10 @@
 <h2>Documents</h2>
 
 <div class="layout">
-  <app-tree-view class="left"></app-tree-view>
+  <app-tree-view
+    class="left"
+    (selectedFolder)="(onFolderSelected)"
+  ></app-tree-view>
 
   <app-document-list class="right" [documents]="documents"></app-document-list>
 </div>

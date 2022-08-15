@@ -1,15 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { ArrayDataSource } from '@angular/cdk/collections';
+import { NestedTreeControl } from '@angular/cdk/tree';
+
+import DocumentService, { Folder } from '../services/document-service';
 
 @Component({
   selector: 'app-tree-view',
   templateUrl: './tree-view.component.html',
-  styleUrls: ['./tree-view.component.css']
+  styleUrls: ['./tree-view.component.css'],
 })
 export class TreeViewComponent implements OnInit {
+  treeControl = new NestedTreeControl<Folder>((node) => node.children);
 
-  constructor() { }
+  folder = DocumentService.GetFolders();
+  dataSource = new ArrayDataSource([this.folder]);
 
-  ngOnInit(): void {
+  hasChild = (_: number, node: Folder) => node.children.length > 0;
+
+  @Output() selectedFolder = new EventEmitter<number>();
+
+  onClick(clicked: Folder) {
+    debugger;
+    this.selectedFolder.emit(clicked.id);
   }
 
+  constructor() {}
+
+  ngOnInit(): void {
+    this.treeControl.expand(this.folder);
+  }
 }

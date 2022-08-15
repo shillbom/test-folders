@@ -9,12 +9,19 @@ import { DocumentListComponent } from './document-list/document-list.component';
 import { DocumentRowComponent } from './document-list/document-row/document-row.component';
 import { DocumentViewComponent } from './document-view/document-view.component';
 import { TreeViewComponent } from './tree-view/tree-view.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { CdkTreeModule } from '@angular/cdk/tree';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     RouterModule.forRoot([{ path: '', component: DocumentViewComponent }]),
+    BrowserAnimationsModule,
+    CdkTreeModule,
+    MatIconModule,
   ],
   declarations: [
     AppComponent,
