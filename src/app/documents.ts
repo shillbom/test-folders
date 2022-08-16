@@ -29,7 +29,7 @@ export const Documents = [
     parent: 10,
     name: 'Hemliga recept',
     isFolder: false,
-    description: 'gotländksa husmorsrecept',
+    description: 'Gotländska husmorsrecept',
     lastChanged: new Date('2022-09-23'),
   },
   {

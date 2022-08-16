@@ -36,3 +36,7 @@ button {
   vertical-align: baseline;
   text-align: center;
 }
+
+cdk-nested-tree-node span i {
+  margin-top: 10px;
+}

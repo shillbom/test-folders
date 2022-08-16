@@ -11,8 +11,8 @@ import { DocumentViewComponent } from './document-view/document-view.component';
 import { TreeViewComponent } from './tree-view/tree-view.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { CdkTreeModule } from '@angular/cdk/tree';
-import { MatIconModule } from '@angular/material/icon';
+import { MaterialExampleModule } from '../material.module';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   imports: [
@@ -20,8 +20,8 @@ import { MatIconModule } from '@angular/material/icon';
     ReactiveFormsModule,
     RouterModule.forRoot([{ path: '', component: DocumentViewComponent }]),
     BrowserAnimationsModule,
-    CdkTreeModule,
-    MatIconModule,
+    MatNativeDateModule,
+    MaterialExampleModule,
   ],
   declarations: [
     AppComponent,
