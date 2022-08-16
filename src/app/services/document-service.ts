@@ -2,7 +2,20 @@ import { Documents, Document } from '../documents';
 
 class DocumentService {
   GetDocuments(folderId: number): Document[] {
-    return Documents.filter((d) => d.parent == folderId);
+    let docs = Documents.filter((d) => d.parent == folderId);
+
+    // Add "up" folder if this isn't root
+    if (folderId != 0) {
+      let thisFolder = Documents.find((d) => d.id == folderId);
+      const up = {
+        name: '..',
+        id: thisFolder!.parent,
+        isFolder: true,
+      } as Document;
+      docs = [up, ...docs];
+    }
+
+    return docs;
   }
 
   GetFolders(): Folder {

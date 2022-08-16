@@ -6,6 +6,6 @@
 <td>
   {{ document.description }}
 </td>
-<td *ngIf="document">
+<td *ngIf="document.lastChanged">
   {{ format(document.lastChanged, 'YYYY-MM-dd') }}
 </td>
