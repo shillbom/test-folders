@@ -10,18 +10,53 @@ import { Document } from '../documents';
 })
 export class DocumentViewComponent implements OnInit {
   documents = [] as Document[];
+  folder = DocumentService.GetFolders();
+  currentFolder = 0;
 
   onFolderSelected(id: number) {
-    this.documents = DocumentService.GetDocuments(id);
+    this.currentFolder = id;
+    this.refreshDocuments();
   }
 
   onDocumentSelected(id: number) {
     window.alert('ACCESS DENIED, doc id: ' + id);
   }
 
+  addFolder() {
+    let folderName = prompt('Enter folder name', 'new folder');
+
+    if (folderName != null) {
+      let desc = prompt('Description', '') || '';
+
+      DocumentService.AddDocument(folderName, desc, true, this.currentFolder);
+      this.refreshDocuments();
+    }
+  }
+
+  addDocument() {
+    let documentName = prompt('Enter document name', 'new document');
+
+    if (documentName != null) {
+      let desc = prompt('Description', '') || '';
+
+      DocumentService.AddDocument(
+        documentName,
+        desc,
+        false,
+        this.currentFolder
+      );
+      this.refreshDocuments();
+    }
+  }
+
+  refreshDocuments() {
+    this.documents = DocumentService.GetDocuments(this.currentFolder);
+    this.folder = DocumentService.GetFolders();
+  }
+
   constructor() {}
 
   ngOnInit(): void {
-    this.documents = DocumentService.GetDocuments(0);
+    this.refreshDocuments();
   }
 }

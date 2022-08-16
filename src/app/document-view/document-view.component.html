@@ -3,13 +3,25 @@
 <div class="layout">
   <app-tree-view
     class="left"
+    [folder]="folder"
     (folderSelected)="onFolderSelected($event)"
   ></app-tree-view>
 
-  <app-document-list
-    class="right"
-    [documents]="documents"
-    (folderSelected)="onFolderSelected($event)"
-    (documentSelected)="onDocumentSelected($event)"
-  ></app-document-list>
+  <div class="right">
+    <div class="button-row">
+      <button mat-stroked-button (click)="addFolder()">
+        <mat-icon>create_new_folder</mat-icon>Add folder
+      </button>
+      <button mat-stroked-button (click)="addDocument()">
+        <mat-icon>add_box</mat-icon>Add document
+      </button>
+    </div>
+
+    <app-document-list
+      class="right"
+      [documents]="documents"
+      (folderSelected)="onFolderSelected($event)"
+      (documentSelected)="onDocumentSelected($event)"
+    ></app-document-list>
+  </div>
 </div>

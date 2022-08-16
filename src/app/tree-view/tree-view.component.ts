@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { ArrayDataSource } from '@angular/cdk/collections';
 import { NestedTreeControl } from '@angular/cdk/tree';
 
@@ -11,12 +11,11 @@ import DocumentService, { Folder } from '../services/document-service';
 })
 export class TreeViewComponent implements OnInit {
   treeControl = new NestedTreeControl<Folder>((node) => node.children);
-
-  folder = DocumentService.GetFolders();
-  dataSource = new ArrayDataSource([this.folder]);
+  dataSource = new ArrayDataSource([] as Folder[]);
 
   hasChild = (_: number, node: Folder) => node.children.length > 0;
 
+  @Input() folder!: Folder;
   @Output() folderSelected = new EventEmitter<number>();
 
   onClick(clicked: Folder) {
@@ -25,7 +24,10 @@ export class TreeViewComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngOnChanges() {
+    this.dataSource = new ArrayDataSource([this.folder]);
     this.treeControl.expand(this.folder);
   }
 }

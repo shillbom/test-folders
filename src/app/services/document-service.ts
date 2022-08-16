@@ -1,6 +1,24 @@
 import { Documents, Document } from '../documents';
 
 class DocumentService {
+  AddDocument(
+    name: string,
+    description: string,
+    isFolder: boolean,
+    parent: number
+  ) {
+    var doc = {
+      id: this.GenerateId(),
+      name: name,
+      description: description,
+      isFolder: isFolder,
+      parent: parent,
+      lastChanged: new Date(),
+    } as Document;
+
+    Documents.push(doc);
+  }
+
   GetDocuments(folderId: number): Document[] {
     let docs = Documents.filter((d) => d.parent == folderId);
 
@@ -28,6 +46,17 @@ class DocumentService {
     this.AddSubFolders(root);
 
     return root;
+  }
+
+  private GenerateId(): number {
+    let test = 0;
+    let found = null;
+    do {
+      test = Math.floor(Math.random() * 10000);
+      found = Documents.find((d) => d.id == test);
+    } while (found != null);
+
+    return test;
   }
 
   private AddSubFolders(folder: Folder) {

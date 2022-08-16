@@ -12,3 +12,12 @@
 .left {
   border-right: 1px solid #5b5b5b;
 }
+
+.button-row {
+  display: table-cell;
+  width: 490px;
+}
+
+.button-row .mat-button-base {
+  margin: 8px 8px 8px 0;
+}

@@ -1,9 +1,8 @@
-<cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">
+<cdk-tree *ngIf="folder" [dataSource]="dataSource" [treeControl]="treeControl">
   <!-- This is the tree node template for leaf nodes -->
   <cdk-nested-tree-node *cdkTreeNodeDef="let node" class="example-tree-node">
     <!-- use a disabled button to provide padding for tree leaf -->
-    <button mat-icon-button disabled>
-    </button>
+    <button mat-icon-button disabled></button>
     <span (click)="onClick(node)"> {{ node.name }}</span>
   </cdk-nested-tree-node>
   <!-- This is the tree node template for expandable nodes -->
