@@ -10,7 +10,7 @@ import { Document } from '../documents';
 })
 export class DocumentViewComponent implements OnInit {
   documents = [] as Document[];
-  folder = DocumentService.GetFolders();
+  folders = DocumentService.GetFolders();
   currentFolder = 0;
 
   onFolderSelected(id: number) {
@@ -51,7 +51,7 @@ export class DocumentViewComponent implements OnInit {
 
   refreshDocuments() {
     this.documents = DocumentService.GetDocuments(this.currentFolder);
-    this.folder = DocumentService.GetFolders();
+    this.folders = DocumentService.GetFolders();
   }
 
   constructor() {}

@@ -1,8 +1,14 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
-import { ArrayDataSource } from '@angular/cdk/collections';
 import { NestedTreeControl } from '@angular/cdk/tree';
+import { MatTreeNestedDataSource } from '@angular/material/tree';
 
-import DocumentService, { Folder } from '../services/document-service';
+import { Document } from '../documents';
+
+interface Folder {
+  name: string;
+  id: number;
+  children: Folder[];
+}
 
 @Component({
   selector: 'app-tree-view',
@@ -11,23 +17,58 @@ import DocumentService, { Folder } from '../services/document-service';
 })
 export class TreeViewComponent implements OnInit {
   treeControl = new NestedTreeControl<Folder>((node) => node.children);
-  dataSource = new ArrayDataSource([] as Folder[]);
+  dataSource = new MatTreeNestedDataSource<Folder>();
 
-  hasChild = (_: number, node: Folder) => node.children.length > 0;
-
-  @Input() folder!: Folder;
+  @Input() folders: Document[] = [];
   @Output() folderSelected = new EventEmitter<number>();
+
+  rootFolder = {
+    name: '..',
+    id: 0,
+    children: [],
+  } as Folder;
+  data = [this.rootFolder];
 
   onClick(clicked: Folder) {
     this.folderSelected.emit(clicked.id);
   }
 
-  constructor() {}
+  constructor() {
+    this.dataSource.data = this.data;
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.addSubFolders(this.rootFolder);
+    this.treeControl.expand(this.rootFolder);
+  }
 
   ngOnChanges() {
-    this.dataSource = new ArrayDataSource([this.folder]);
-    this.treeControl.expand(this.folder);
+    if (this.folders != null) {
+      this.addSubFolders(this.rootFolder);
+
+      this.dataSource.data = null;
+      this.dataSource.data = this.data;
+    }
+  }
+
+  hasChild = (_: number, node: Folder) => node.children.length > 0;
+
+  private addSubFolders(folder: Folder) {
+    for (const subFolder of this.folders.filter(
+      (d) => d.isFolder && d.parent == folder.id
+    )) {
+      let child = folder.children.find((s) => s.id == subFolder.id);
+      if (child == null) {
+        child = {
+          name: subFolder.name,
+          id: subFolder.id,
+          children: [],
+        } as Folder;
+
+        folder.children.push(child);
+      }
+
+      this.addSubFolders(child);
+    }
   }
 }
