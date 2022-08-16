@@ -1,15 +1,19 @@
-<table *ngIf="documents">
-  <tr>
-    <th>Type</th>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Last Changed</th>
-  </tr>
+<cdk-drop-list (cdkDropListDropped)="drop($event)" cdkDropListSortingDisabled>
+  <table *ngIf="documents">
+    <tr>
+      <th>Type</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Last Changed</th>
+    </tr>
 
-  <tr
-    *ngFor="let document of documents"
-    (click)="selected(document)"
-    app-document-row
-    [document]="document"
-  ></tr>
-</table>
+    <tr
+      *ngFor="let document of documents"
+      (click)="selected(document)"
+      app-document-row
+      [document]="document"
+      cdkDrag
+      (cdkDragReleased)="drag($event)"
+    ></tr>
+  </table>
+</cdk-drop-list>

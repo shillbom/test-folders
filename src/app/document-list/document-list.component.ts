@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Document } from '../documents';
+import { CdkDragRelease, CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-document-list',
@@ -11,6 +12,16 @@ export class DocumentListComponent {
 
   @Output() folderSelected = new EventEmitter<number>();
   @Output() documentSelected = new EventEmitter<number>();
+
+  drag(event: CdkDragRelease<any>) {
+    console.log('drag', event.source);
+
+    event.source._dragRef.reset();
+  }
+
+  drop(event: CdkDragDrop<any, any>) {
+    console.log('drop', event);
+  }
 
   selected(doc: Document) {
     if (doc.isFolder) {

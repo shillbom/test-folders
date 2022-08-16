@@ -65,7 +65,9 @@ export class TreeViewComponent implements OnInit {
           children: [],
         } as Folder;
 
+        // Add the folder to the list and expand the node for newly created folders
         folder.children.push(child);
+        this.treeControl.expand(folder);
       }
 
       this.addSubFolders(child);
