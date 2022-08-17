@@ -1,6 +1,19 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ElementRef,
+  Renderer2,
+} from '@angular/core';
 import { Document } from '../documents';
-import { CdkDragRelease, CdkDragDrop } from '@angular/cdk/drag-drop';
+import {
+  CdkDragRelease,
+  CdkDragDrop,
+  CdkDrag,
+  CdkDropList,
+  CdkDragStart,
+} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-document-list',
@@ -12,15 +25,42 @@ export class DocumentListComponent {
 
   @Output() folderSelected = new EventEmitter<number>();
   @Output() documentSelected = new EventEmitter<number>();
+  @Output() documentMoved = new EventEmitter<any>();
 
-  drag(event: CdkDragRelease<any>) {
-    console.log('drag', event.source);
+  drop(event: any) {
+    // it was moved
+    if (event.item.dropContainer.id != event.container.id) {
+      //Validate that we can move here?
+      if (!event.container.data.isFolder) {
+        return;
+      }
 
-    event.source._dragRef.reset();
+      console.log(`Moving ${event.item.data.id} to ${event.container.data.id}`);
+      this.documentMoved.emit({
+        from: event.item.data.id,
+        to: event.container.data.id,
+      });
+    }
   }
 
-  drop(event: CdkDragDrop<any, any>) {
-    console.log('drop', event);
+  // Maybe do some cool animations?
+  exited(event: any) {}
+  entered() {}
+
+  // Manage temp icon for UX
+  from = null as ElementRef | null;
+  start(ev: CdkDragStart) {
+    this.from = ev.source.dropContainer.element;
+
+    if (this.from != null) {
+      this.renderer.addClass(this.from.nativeElement, 'drag-from');
+    }
+  }
+  stop(ev: any) {
+    if (this.from != null) {
+      this.renderer.removeClass(this.from.nativeElement, 'drag-from');
+    }
+    this.from = null;
   }
 
   selected(doc: Document) {
@@ -31,13 +71,12 @@ export class DocumentListComponent {
     }
   }
 
-  constructor() {
+  noReturnPredicate(drag: CdkDrag<any>, drop: CdkDropList<any>) {
+    const doc = drop.data as Document;
+    return doc.isFolder;
+  }
+
+  constructor(private renderer: Renderer2) {
     this.documents = [];
   }
 }
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/
