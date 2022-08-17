@@ -49,6 +49,13 @@ export class DocumentViewComponent implements OnInit {
     }
   }
 
+  onDocumentMoved(ev: any) {
+    console.log(ev);
+    DocumentService.MoveDocument(ev.from, ev.to);
+
+    this.refreshDocuments();
+  }
+
   refreshDocuments() {
     this.documents = DocumentService.GetDocuments(this.currentFolder);
     this.folders = DocumentService.GetFolders();

@@ -36,6 +36,11 @@ class DocumentService {
     return docs;
   }
 
+  MoveDocument(from: number, to: number) {
+    const found = Documents.find((d) => d.id == from);
+    found.parent = to;
+  }
+
   GetFolders(): Document[] {
     return Documents.filter((d) => d.isFolder);
   }
