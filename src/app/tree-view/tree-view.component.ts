@@ -54,6 +54,7 @@ export class TreeViewComponent implements OnInit {
   hasChild = (_: number, node: Folder) => node.children.length > 0;
 
   private addSubFolders(folder: Folder) {
+    folder.children = [];
     for (const subFolder of this.folders.filter(
       (d) => d.isFolder && d.parent == folder.id
     )) {
