@@ -1,6 +1,6 @@
 <h2>Documents</h2>
 
-<div class="layout">
+<div class="layout drag-parent">
   <app-tree-view
     class="left"
     [folders]="folders"
@@ -10,10 +10,10 @@
   <div class="right">
     <div class="button-row">
       <button mat-stroked-button (click)="addFolder()">
-        <mat-icon>create_new_folder</mat-icon>  Add folder
+        <mat-icon>create_new_folder</mat-icon> Add folder
       </button>
       <button mat-stroked-button (click)="addDocument()">
-        <mat-icon>add_box</mat-icon>  Add document
+        <mat-icon>add_box</mat-icon> Add document
       </button>
     </div>
 

@@ -9,7 +9,7 @@
 
     <tr
       *ngFor="let document of documents"
-      (click)="selected(document)"
+      (dblclick)="selected(document)"
       app-document-row
       [document]="document"
       cdkDrag
