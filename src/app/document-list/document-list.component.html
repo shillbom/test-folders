@@ -14,6 +14,11 @@
       [document]="document"
       cdkDrag
       (cdkDragReleased)="drag($event)"
-    ></tr>
+    >
+      <div *cdkDragPreview>
+        <i *ngIf="document.isFolder" class="material-icons">folder</i>
+        <i *ngIf="!document.isFolder" class="material-icons">description</i>
+      </div>
+    </tr>
   </table>
 </cdk-drop-list>
