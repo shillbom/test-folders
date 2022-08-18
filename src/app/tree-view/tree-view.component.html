@@ -5,6 +5,7 @@
     class="example-tree-node"
     cdkDropList
     [cdkDropListData]="node"
+    [cdkDropListEnterPredicate]="noReturnPredicate"
     (cdkDropListDropped)="drop($event)"
   >
     <div cdkDropList>
@@ -45,6 +46,7 @@
     <div
       cdkDropList
       [cdkDropListData]="node"
+      [cdkDropListEnterPredicate]="noReturnPredicate"
       (cdkDropListDropped)="drop($event)"
     >
       <div

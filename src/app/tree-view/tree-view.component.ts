@@ -11,7 +11,9 @@ import { NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
 
 import { Document } from '../documents';
-import { CdkDragStart } from '@angular/cdk/drag-drop';
+import { CdkDragStart, CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
+
+import DocumentService from '../services/document-service';
 
 interface Folder {
   name: string;
@@ -97,6 +99,12 @@ export class TreeViewComponent implements OnInit {
       this.dataSource.data = null;
       this.dataSource.data = this.data;
     }
+  }
+
+  noReturnPredicate(drag: CdkDrag<any>, drop: CdkDropList<any>) {
+    const doc = drag.data as Document;
+    const to = drop.data as Document;
+    return DocumentService.IsAllowedToMoveDocument(doc.id, to.id);
   }
 
   hasChild = (_: number, node: Folder) => node.children.length > 0;

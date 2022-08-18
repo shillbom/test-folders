@@ -74,6 +74,10 @@ cdk-nested-tree-node span i {
   border: 2px solid gray;
 }
 
+.cdk-drop-list-dragging.drag-from {
+  border: none;
+}
+
 /* Fixes "bug" / feature in cdkDrag */
 .cdk-drop-list-dragging > .cdk-drag {
   transform: none !important;

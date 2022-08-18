@@ -15,6 +15,8 @@ import {
   CdkDragStart,
 } from '@angular/cdk/drag-drop';
 
+import DocumentService from '../services/document-service';
+
 @Component({
   selector: 'app-document-list',
   templateUrl: './document-list.component.html',
@@ -63,8 +65,9 @@ export class DocumentListComponent {
   }
 
   noReturnPredicate(drag: CdkDrag<any>, drop: CdkDropList<any>) {
-    const doc = drop.data as Document;
-    return doc.isFolder;
+    const doc = drag.data as Document;
+    const to = drop.data as Document;
+    return DocumentService.IsAllowedToMoveDocument(doc.id, to.id);
   }
 
   constructor(private renderer: Renderer2) {

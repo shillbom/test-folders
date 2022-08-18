@@ -25,6 +25,10 @@ tbody.cdk-drop-list-dragging {
   border: 2px solid gray;
 }
 
+tbody.cdk-drop-list-dragging.drag-from {
+  border: none;
+}
+
 .cdk-drop-list .temp {
   display: none;
 }
