@@ -62,20 +62,33 @@ button {
   text-align: center;
 }
 
+.selected {
+  background-color: lightblue;
+}
+
 cdk-nested-tree-node span i {
   margin-top: 10px;
+}
+
+.cdk-drop-list-dragging {
+  border: 2px solid gray;
+}
+
+/* Fixes "bug" / feature in cdkDrag */
+.cdk-drop-list-dragging > .cdk-drag {
+  transform: none !important;
 }
 
 .selected:first-child {
   background-color: lightblue;
 }
 
-.cdk-drop-list .temp {
+.cdk-drop-list > .temp {
   display: none;
 }
 
-.cdk-drop-list.drag-from .temp {
-  display: table-row;
+.cdk-drop-list.drag-from > .temp {
+  display: block;
 }
 
 .cdk-drag-placeholder {

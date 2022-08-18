@@ -1,8 +1,17 @@
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  EventEmitter,
+  Output,
+  Input,
+  ElementRef,
+  Renderer2,
+} from '@angular/core';
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
 
 import { Document } from '../documents';
+import { CdkDragStart } from '@angular/cdk/drag-drop';
 
 interface Folder {
   name: string;
@@ -44,7 +53,7 @@ export class TreeViewComponent implements OnInit {
     this.folderSelected.emit(clicked.id);
   }
 
-  constructor() {
+  constructor(private renderer: Renderer2) {
     this.dataSource.data = this.data;
   }
 
@@ -56,6 +65,29 @@ export class TreeViewComponent implements OnInit {
 
   getPadding(node: Folder): string {
     return `${22 * node.level}px`;
+  }
+
+  // Manage temp icon for UX
+  from = null as ElementRef | null;
+  start(ev: CdkDragStart) {
+    this.from = ev.source.dropContainer.element;
+
+    if (this.from != null) {
+      this.renderer.addClass(this.from.nativeElement, 'drag-from');
+    }
+  }
+  stop(ev: any) {
+    if (this.from != null) {
+      this.renderer.removeClass(this.from.nativeElement, 'drag-from');
+    }
+    this.from = null;
+  }
+
+  drop(event: any) {
+    this.documentMoved.emit({
+      from: event.item.data.id,
+      to: event.container.data.id,
+    });
   }
 
   ngOnChanges() {

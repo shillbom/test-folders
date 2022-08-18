@@ -28,19 +28,10 @@ export class DocumentListComponent {
   @Output() documentMoved = new EventEmitter<any>();
 
   drop(event: any) {
-    // it was moved
-    if (event.item.dropContainer.id != event.container.id) {
-      //Validate that we can move here?
-      if (!event.container.data.isFolder) {
-        return;
-      }
-
-      console.log(`Moving ${event.item.data.id} to ${event.container.data.id}`);
-      this.documentMoved.emit({
-        from: event.item.data.id,
-        to: event.container.data.id,
-      });
-    }
+    this.documentMoved.emit({
+      from: event.item.data.id,
+      to: event.container.data.id,
+    });
   }
 
   // Maybe do some cool animations?

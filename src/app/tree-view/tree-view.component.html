@@ -4,20 +4,35 @@
     *matTreeNodeDef="let node"
     class="example-tree-node"
     cdkDropList
+    [cdkDropListData]="node"
+    (cdkDropListDropped)="drop($event)"
   >
-    <div
-      cdkDrag
-      [cdkDragData]="node.document"
-      [class.selected]="node.id == selectedId"
-      [style.paddingLeft]="getPadding(node)"
-      (click)="onClick(node)"
-    >
-      <!-- use a disabled button to provide padding for tree leaf -->
-      <button mat-icon-button disabled matTreeNodeToggle></button>
-      <i class="material-icons folder-icon">folder</i>
-      <span>{{ node.name }}</span>
-      <div *cdkDragPreview>
-        <i class="material-icons">folder</i>
+    <div cdkDropList>
+      <div
+        class="temp"
+        [class.selected]="node.id == selectedId"
+        [style.paddingLeft]="getPadding(node)"
+      >
+        <button mat-icon-button disabled matTreeNodeToggle></button>
+        <i class="material-icons folder-icon">folder</i>
+        <span>{{ node.name }}</span>
+      </div>
+      <div
+        cdkDrag
+        (cdkDragStarted)="start($event)"
+        (cdkDragDropped)="stop($event)"
+        [cdkDragData]="node.document"
+        [class.selected]="node.id == selectedId"
+        [style.paddingLeft]="getPadding(node)"
+        (click)="onClick(node)"
+      >
+        <!-- use a disabled button to provide padding for tree leaf -->
+        <button mat-icon-button disabled matTreeNodeToggle></button>
+        <i class="material-icons folder-icon">folder</i>
+        <span>{{ node.name }}</span>
+        <div *cdkDragPreview>
+          <i class="material-icons">folder</i>
+        </div>
       </div>
     </div>
   </mat-nested-tree-node>
@@ -26,24 +41,44 @@
   <mat-nested-tree-node
     *matTreeNodeDef="let node; when: hasChild"
     class="example-tree-node"
-    cdkDropList
   >
     <div
-      cdkDrag
-      [cdkDragData]="node.document"
-      [class.selected]="node.id == selectedId"
-      [style.paddingLeft]="getPadding(node)"
-      (click)="onClick(node)"
+      cdkDropList
+      [cdkDropListData]="node"
+      (cdkDropListDropped)="drop($event)"
     >
-      <button mat-icon-button matTreeNodeToggle>
-        <mat-icon class="mat-icon-rtl-mirror">
-          {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
-        </mat-icon>
-      </button>
-      <i class="material-icons folder-icon">folder</i>
-      <span>{{ node.name }}</span>
-      <div *cdkDragPreview>
-        <i class="material-icons">folder</i>
+      <div
+        class="temp"
+        [class.selected]="node.id == selectedId"
+        [style.paddingLeft]="getPadding(node)"
+      >
+        <button mat-icon-button matTreeNodeToggle>
+          <mat-icon class="mat-icon-rtl-mirror">
+            {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
+          </mat-icon>
+        </button>
+        <i class="material-icons folder-icon">folder</i>
+        <span>{{ node.name }}</span>
+      </div>
+      <div
+        cdkDrag
+        (cdkDragStarted)="start($event)"
+        (cdkDragDropped)="stop($event)"
+        [cdkDragData]="node.document"
+        [class.selected]="node.id == selectedId"
+        [style.paddingLeft]="getPadding(node)"
+        (click)="onClick(node)"
+      >
+        <button mat-icon-button matTreeNodeToggle>
+          <mat-icon class="mat-icon-rtl-mirror">
+            {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
+          </mat-icon>
+        </button>
+        <i class="material-icons folder-icon">folder</i>
+        <span>{{ node.name }}</span>
+        <div *cdkDragPreview>
+          <i class="material-icons">folder</i>
+        </div>
       </div>
     </div>
 

@@ -36,9 +36,49 @@ class DocumentService {
     return docs;
   }
 
-  MoveDocument(from: number, to: number) {
-    const found = Documents.find((d) => d.id == from);
+  MoveDocument(doc: number, to: number) {
+    debugger;
+    const found = Documents.find((d) => d.id == doc);
+
+    if (found.parent == to) {
+      return;
+    }
+
+    if (found == null) {
+      window.alert('critical error, document not found');
+      return;
+    }
+
+    var toFolder = Documents.find((d) => d.id == to);
+    if (toFolder == null) {
+      window.alert('critical error, folder not found');
+      return;
+    }
+
+    if (!toFolder.isFolder) {
+      window.alert('the target is not a folder!');
+      return;
+    }
+
+    if (found.isFolder && this.CheckIfParent(toFolder, doc)) {
+      window.alert('cannot move into subfolder!');
+      return;
+    }
+
     found.parent = to;
+  }
+
+  private CheckIfParent(folder: Document, parent: number): boolean {
+    if (folder.id == 0) {
+      return false;
+    }
+
+    if (folder.parent == parent) {
+      return true;
+    }
+
+    var next = Documents.find((d) => d.id == folder.parent);
+    return this.CheckIfParent(next, parent);
   }
 
   GetFolders(): Document[] {
