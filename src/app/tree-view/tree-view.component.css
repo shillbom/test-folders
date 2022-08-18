@@ -1,6 +1,18 @@
 :host {
   width: 600px;
-  font-size: 16px;
+}
+
+:host > .cdk-tree-node {
+  font-size: 13px;
+}
+
+:host .material-icons {
+  font-size: 20px;
+}
+
+.cdk-tree-node button {
+  height: 25px;
+  width: 25px;
 }
 
 .example-tree-invisible {
@@ -17,9 +29,11 @@
   display: block;
 }
 
+/*
+padding for nested nodes 
 .example-tree-node .example-tree-node {
   padding-left: 22px;
-}
+} */
 
 cdk-nested-tree-node {
   display: flex;
@@ -34,11 +48,10 @@ cdk-nested-tree-node {
 }
 
 button .mat-icon {
-  line-height: 18px;
+  line-height: 23px;
 }
 
 button {
-  background-color: white;
   padding: 0;
   min-width: 0;
   height: 40px;
@@ -51,4 +64,8 @@ button {
 
 cdk-nested-tree-node span i {
   margin-top: 10px;
+}
+
+.selected:first-child {
+  background-color: lightblue;
 }

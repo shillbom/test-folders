@@ -7,6 +7,7 @@ import { Document } from '../documents';
 interface Folder {
   name: string;
   id: number;
+  level: number;
   children: Folder[];
 }
 
@@ -20,11 +21,13 @@ export class TreeViewComponent implements OnInit {
   dataSource = new MatTreeNestedDataSource<Folder>();
 
   @Input() folders: Document[] = [];
+  @Input() selectedId: number;
   @Output() folderSelected = new EventEmitter<number>();
 
   rootFolder = {
     name: '..',
     id: 0,
+    level: 0,
     children: [],
   } as Folder;
   data = [this.rootFolder];
@@ -38,13 +41,18 @@ export class TreeViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.addSubFolders(this.rootFolder);
+    this.addSubFolders(this.rootFolder, 1);
+
     this.treeControl.expand(this.rootFolder);
+  }
+
+  getPadding(node: Folder): string {
+    return `${22 * node.level}px`;
   }
 
   ngOnChanges() {
     if (this.folders != null) {
-      this.addSubFolders(this.rootFolder);
+      this.addSubFolders(this.rootFolder, 1);
 
       this.dataSource.data = null;
       this.dataSource.data = this.data;
@@ -53,7 +61,7 @@ export class TreeViewComponent implements OnInit {
 
   hasChild = (_: number, node: Folder) => node.children.length > 0;
 
-  private addSubFolders(folder: Folder) {
+  private addSubFolders(folder: Folder, level: number) {
     folder.children = [];
     for (const subFolder of this.folders.filter(
       (d) => d.isFolder && d.parent == folder.id
@@ -63,6 +71,7 @@ export class TreeViewComponent implements OnInit {
         child = {
           name: subFolder.name,
           id: subFolder.id,
+          level: level,
           children: [],
         } as Folder;
 
@@ -71,7 +80,7 @@ export class TreeViewComponent implements OnInit {
         this.treeControl.expand(folder);
       }
 
-      this.addSubFolders(child);
+      this.addSubFolders(child, level + 1);
     }
   }
 }
