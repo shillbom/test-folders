@@ -16,14 +16,6 @@ tr.cdk-drag-dragging {
     0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
-.cdk-drag-preview {
-  line-height: 48px;
-  font-size: 48px;
-  background-color: rgba(39, 174, 245, 0.57);
-  padding: 15px;
-  border-radius: 5px;
-}
-
 tbody {
   margin: 2px;
   box-sizing: border-box;
@@ -31,11 +23,6 @@ tbody {
 
 tbody.cdk-drop-list-dragging {
   border: 2px solid gray;
-}
-
-.cdk-drag-preview i {
-  line-height: 48px;
-  font-size: 48px;
 }
 
 .cdk-drop-list .temp {

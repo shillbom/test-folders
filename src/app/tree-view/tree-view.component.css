@@ -69,3 +69,15 @@ cdk-nested-tree-node span i {
 .selected:first-child {
   background-color: lightblue;
 }
+
+.cdk-drop-list .temp {
+  display: none;
+}
+
+.cdk-drop-list.drag-from .temp {
+  display: table-row;
+}
+
+.cdk-drag-placeholder {
+  display: none;
+}

@@ -141,11 +141,24 @@ app-top-bar h1 {
   background-color: #eeeeee;
 }
 
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.cdk-drag-preview {
+  line-height: 48px;
+  font-size: 48px;
+  background-color: rgba(39, 174, 245, 0.57);
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.cdk-drag-preview i {
+  line-height: 48px;
+  font-size: 48px;
+}

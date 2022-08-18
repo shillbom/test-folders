@@ -6,6 +6,7 @@
     [folders]="folders"
     [selectedId]="currentFolder"
     (folderSelected)="onFolderSelected($event)"
+    (documentMoved)="onDocumentMoved($event)"
   ></app-tree-view>
 
   <div class="right">

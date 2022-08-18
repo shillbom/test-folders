@@ -1,7 +1,13 @@
 <mat-tree *ngIf="folders" [dataSource]="dataSource" [treeControl]="treeControl">
   <!-- This is the tree node template for leaf nodes -->
-  <mat-nested-tree-node *matTreeNodeDef="let node" class="example-tree-node">
+  <mat-nested-tree-node
+    *matTreeNodeDef="let node"
+    class="example-tree-node"
+    cdkDropList
+  >
     <div
+      cdkDrag
+      [cdkDragData]="node.document"
       [class.selected]="node.id == selectedId"
       [style.paddingLeft]="getPadding(node)"
       (click)="onClick(node)"
@@ -10,6 +16,9 @@
       <button mat-icon-button disabled matTreeNodeToggle></button>
       <i class="material-icons folder-icon">folder</i>
       <span>{{ node.name }}</span>
+      <div *cdkDragPreview>
+        <i class="material-icons">folder</i>
+      </div>
     </div>
   </mat-nested-tree-node>
 
@@ -17,8 +26,11 @@
   <mat-nested-tree-node
     *matTreeNodeDef="let node; when: hasChild"
     class="example-tree-node"
+    cdkDropList
   >
     <div
+      cdkDrag
+      [cdkDragData]="node.document"
       [class.selected]="node.id == selectedId"
       [style.paddingLeft]="getPadding(node)"
       (click)="onClick(node)"
@@ -30,6 +42,9 @@
       </button>
       <i class="material-icons folder-icon">folder</i>
       <span>{{ node.name }}</span>
+      <div *cdkDragPreview>
+        <i class="material-icons">folder</i>
+      </div>
     </div>
 
     <div [class.example-tree-invisible]="!treeControl.isExpanded(node)">

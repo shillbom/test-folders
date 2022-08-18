@@ -9,6 +9,7 @@ interface Folder {
   id: number;
   level: number;
   children: Folder[];
+  document: Document;
 }
 
 @Component({
@@ -22,13 +23,20 @@ export class TreeViewComponent implements OnInit {
 
   @Input() folders: Document[] = [];
   @Input() selectedId: number;
+
   @Output() folderSelected = new EventEmitter<number>();
+  @Output() documentMoved = new EventEmitter<any>();
 
   rootFolder = {
     name: '..',
     id: 0,
     level: 0,
     children: [],
+    document: {
+      id: 0,
+      name: '',
+      isFolder: true,
+    },
   } as Folder;
   data = [this.rootFolder];
 
@@ -73,6 +81,7 @@ export class TreeViewComponent implements OnInit {
           id: subFolder.id,
           level: level,
           children: [],
+          document: subFolder,
         } as Folder;
 
         // Add the folder to the list and expand the node for newly created folders
